@@ -1,48 +1,61 @@
 import React from "react";
-// react so we can write components
+// bring in React hook so we can make components
 import CountryCard from "../components/CountryCard.jsx";
-// each box for one country
+// a component that shows one country card
 
-// this component gets data from the parent; it does not fetch here
+// this page shows every country as a grid of cards
+export default function Home({ countriesData }) {
+  // the parent sends us the list as countriesData
+  const safeCountryList = Array.isArray(countriesData) ? countriesData : [];
+  // make sure we have an array or use an empty one
 
-export default function Home({ countriesData, isLoading }) {
-  const safeList = Array.isArray(countriesData) ? countriesData : [];
-  //  this is the fetched data coming in as a prop
-  const alphabeticalList = [...safeList].sort((firstCountry, secondCountry) => {
-    // copy then sort by name so A→Z
-    const firstName = firstCountry?.name?.common || firstCountry?.name || "";
-    // safe left name
-    const secondName = secondCountry?.name?.common || secondCountry?.name || "";
-    // safe right name
-    return firstName.localeCompare(secondName);
-  });
-  // done making an A→Z list
+  const alphabeticalCountryList = [...safeCountryList].sort(
+    (firstCountryItem, secondCountryItem) => {
+      // copy the list, then sort it A→Z
+      const firstCountryName =
+        firstCountryItem?.name?.common || firstCountryItem?.name || "";
+      // get the left name safely string or empty
+      const secondCountryName =
+        secondCountryItem?.name?.common || secondCountryItem?.name || "";
+      // get the right name safely string or empty
+      return firstCountryName.localeCompare(secondCountryName);
+      // compare the two names to decide order
+    }
+  ); // done an A to Z list
 
   return (
     // show the page
     <section>
-      {/* title row with a simple count or loading text */}
+      {" "}
+      {/* page wrapper */}
       <div className="list-header">
+        {" "}
+        {/* row with title and a simple count */}
         <h1 className="page-title">All Countries</h1>
-        <p className="page-subtitle">
-          {isLoading ? "loading…" : `${alphabeticalList.length} total`}
-          {/* show how many after sorting */}
-        </p>
+        <p className="page-subtitle">{`${alphabeticalCountryList.length} total`}</p>{" "}
+        {/* show how many countries we have */}
       </div>
-
-      {/* grid of cards */}
       <div className="cards-grid">
-        {/*  only render cards after loading is done */}
-        {!isLoading &&
-          alphabeticalList.map((country) => (
-            // loop over the fetched data and render each item
+        {" "}
+        {/* grid that holds every country card */}
+        {alphabeticalCountryList.map(
+          (
+            countryItem
+            // go through the sorted lis one country at a time
+          ) => (
             <CountryCard
-              key={country?.cca3 || country?.name?.common || country?.name}
-              country={country}
-              // give the whole country to the card
+              key={
+                countryItem?.cca3 ||
+                countryItem?.name?.common ||
+                countryItem?.name
+              } // a key so React can track each card
+              country={countryItem}
+              // pass the whole country object down to the card
             />
-          ))}
+          )
+        )}{" "}
+        {/* end of the loop that makes one CountryCard per country */}
       </div>
     </section>
-  );
+  ); // end of what we show on the screen
 }
