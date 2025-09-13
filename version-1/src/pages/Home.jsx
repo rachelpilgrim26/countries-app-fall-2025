@@ -11,7 +11,7 @@ export default function Home({ countriesData }) {
 
   const alphabeticalCountryList = [...safeCountryList].sort(
     (firstCountryItem, secondCountryItem) => {
-      // copy the list, then sort it A→Z
+      // copy the list then sort it A→Z
       const firstCountryName =
         firstCountryItem?.name?.common || firstCountryItem?.name || "";
       // get the left name safely string or empty
