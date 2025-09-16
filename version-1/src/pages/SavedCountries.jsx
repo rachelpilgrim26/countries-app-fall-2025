@@ -1,55 +1,51 @@
 import React, { useState } from "react";
 
 export default function SavedCountries() {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    emailAddress: "",
-    countryName: "",
-    shortBio: "",
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    country: "",
+    bio: "",
   });
 
-  const handleChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  function onChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
 
-  const handleSubmit = (e) => {
+  function onSubmit(e) {
     e.preventDefault();
-    setFormData({
-      fullName: "",
-      emailAddress: "",
-      countryName: "",
-      shortBio: "",
-    });
-  };
+    setForm({ name: "", email: "", country: "", bio: "" });
+  }
 
   return (
-    <section className="saved-page">
+    <section className="saved">
       <h1>My Profile</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <input
-          name="fullName"
+          name="name"
           placeholder="name"
-          value={formData.fullName}
-          onChange={handleChange}
+          value={form.name}
+          onChange={onChange}
         />
         <input
-          name="emailAddress"
+          name="email"
           placeholder="email"
-          value={formData.emailAddress}
-          onChange={handleChange}
+          value={form.email}
+          onChange={onChange}
         />
         <input
-          name="countryName"
+          name="country"
           placeholder="country"
-          value={formData.countryName}
-          onChange={handleChange}
+          value={form.country}
+          onChange={onChange}
         />
         <textarea
-          name="shortBio"
+          name="bio"
           placeholder="bio"
-          value={formData.shortBio}
-          onChange={handleChange}
+          value={form.bio}
+          onChange={onChange}
         />
-        <button type="submit">save</button>
+        <button type="submit">Save</button>
       </form>
     </section>
   );
