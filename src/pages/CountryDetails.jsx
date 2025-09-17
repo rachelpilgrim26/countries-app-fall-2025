@@ -19,8 +19,6 @@ export default function CountryDetails({ countries }) {
       <img className="flag" src={flag} alt={name + " flag"} />
       <h1>{name}</h1>
       <p>Population: {pop}</p>
-      <p>Population: {Number(country.population).toLocaleString("en-US")}</p>
-
       <p>Capital: {cap}</p>
       <p>Region: {reg}</p>
     </div>

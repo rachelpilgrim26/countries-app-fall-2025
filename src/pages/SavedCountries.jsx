@@ -76,7 +76,7 @@ export default function SavedCountries() {
       {/* page wrapper */}
       <h1>My Profile</h1>
       <form onSubmit={onSubmit}>
-        {/* {" "} */}
+        {" "}
         <input
           name="name"
           placeholder="name"
