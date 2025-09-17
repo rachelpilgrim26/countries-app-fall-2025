@@ -13,7 +13,6 @@
 
 body {
   margin: 0;
-
   background: var(--bg);
   color: var(--txt);
 }
@@ -21,8 +20,6 @@ body {
 .header {
   background: var(--box);
   border-bottom: 1px solid var(--line);
-}
-.header {
   max-width: var(--max);
   margin: 0 auto;
   padding: 16px 20px;
@@ -96,7 +93,7 @@ body {
 }
 
 .saved {
-  max-width: 600px;
+  max-width: var(--max);
   margin: 0 auto;
   padding: 32px 16px;
 }
@@ -109,11 +106,14 @@ body {
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 24px;
-  display: grid;
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 .saved input,
 .saved textarea {
+  display: block;
   width: 100%;
   padding: 10px 12px;
   font-size: 14px;
@@ -126,7 +126,7 @@ body {
   min-height: 100px;
 }
 .saved button {
-  justify-self: end;
+  align-self: flex-end;
   padding: 10px 16px;
   font-size: 14px;
   background: #4f46e5;
@@ -135,23 +135,39 @@ body {
   border-radius: 6px;
   cursor: pointer;
 }
-.saved .flag {
-  width: 160px;
-  aspect-ratio: 4/3;
-  border: 1px solid var(--line);
-  border-radius: 8px;
+.saved button:hover {
+  background: #4338ca;
+}
+
+.saved .grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 640px) {
+  .saved .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .saved .grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .detail {
-  max-width: 1100px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 24px 20px;
 }
 .detail .flag {
   width: 100%;
+  max-width: 500px;
   aspect-ratio: 16/10;
   border: 1px solid var(--line);
   border-radius: 12px;
+  display: block;
+  margin-bottom: 16px;
 }
 .detail h1 {
   font-size: 24px;
@@ -160,4 +176,17 @@ body {
 .detail p {
   font-size: 14px;
   margin: 6px 0;
+}
+.detail button {
+  margin-top: 12px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.detail button:hover {
+  background: #4338ca;
 }
