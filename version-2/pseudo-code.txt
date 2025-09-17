@@ -1,0 +1,168 @@
+:brain: VERSION 2 PSEUDO-CODE WORKSHEET
+-------------------------------------
+This is our WHAT, WHEN, WHERE, HOW framework for working with data:
+1. WHAT data should we store & retrieve?
+   List the key/value pair, data type, example value.
+2. WHEN should we store & retrieve the data?
+   What event or user action is the trigger, such as clicking a button, submitting a form, or loading a page?
+3. WHERE does this happen in the code?
+   What component, page or function?
+4. HOW do we accomplish this?
+   What steps do we need to take?
+   Do we need to...
+    - render anything in JSX?
+    - make any functions? If so, when would we call those functions?
+    - use any useState or useEffect hooks?
+    - set or get an item from localStorage?
+  Remember: This is pseudo-code. Don't write code yet — just outline the actions in plain language.
+:sparkles: YOUR TASK: Fill in the answers to each WHAT/WHEN/WHERE/HOW question below for the 3 pieces of data.
+------------------------
+:bar_chart: FORM DATA
+------------------------
+WHAT data should we store & retrieve?
+KEY: "user"
+VALUE: (the data from the form that the user submits) fullname, email, country, bio
+VALUE DATA TYPE: object with key values
+EXAMPLE VALUE:
+{
+   name: "bob smith"
+   email: bobsmith@gmail.com
+   country: Argentina
+   bio: loves fish
+}
+------------------------
+:large_orange_diamond:
+STORING FORM DATA
+------------------------
+WHEN: when user hits submit
+WHERE: saved countries page
+HOW:
+Step 1: create a handle submit function that includes saving it into localStorage
+Step 2: We add the handleSubmit as an OnSubmit prop ont he form in JSX- make sure that the function is being called when the user clicks submit
+Step 3:then show. it back to the user  _______
+Add more steps as needed!
+------------------------
+:large_orange_diamond: RETRIEVING FORM DATA
+when you use ***getItem
+------------------------
+WHEN: When the user loads the saved countries page
+WHERE: Saved countries page above the form
+HOW:
+Step 1: We need to make a useEffect that retrieves the Form data on page load and saves it in state
+Step 2: We render the state variable in the JSX  as a heading that says "Welcom [user]"
+Step 3: then we show it back to the user and also we save it in local storage _______
+Add more steps as needed!
+-------------------------------------
+🧠 VERSION 2 PSEUDO-CODE WORKSHEET 
+-------------------------------------
+
+This is our WHAT, WHEN, WHERE, HOW framework for working with data:
+
+1. WHAT data should we store & retrieve? 
+   List the key/value pair, data type, example value.
+
+2. WHEN should we store & retrieve the data? 
+   What event or user action is the trigger, such as clicking a button, submitting a form, or loading a page? 
+
+3. WHERE does this happen in the code? 
+   What component, page or function? 
+
+4. HOW do we accomplish this? 
+   What steps do we need to take? 
+   Do we need to...
+    - render anything in JSX? 
+    - make any functions? If so, when would we call those functions? 
+    - use any useState or useEffect hooks? 
+    - set or get an item from localStorage? 
+  Remember: This is pseudo-code. Don't write code yet — just outline the actions in plain language. 
+
+✨ YOUR TASK: Fill in the answers to each WHAT/WHEN/WHERE/HOW question below for the 3 pieces of data. 
+:bar_chart: FORM DATA
+------------------------
+WHAT data should we store & retrieve?
+KEY: "user"
+VALUE: (the data from the form that the user submits) fullname, email, country, bio
+VALUE DATA TYPE: object with key values
+EXAMPLE VALUE:
+{
+   name: "bob smith"
+   email: bobsmith@gmail.com
+   country: Argentina
+   bio: loves fish
+}
+------------------------
+:large_orange_diamond:
+STORING FORM DATA
+------------------------
+WHEN: when user hits submit
+WHERE: saved countries page
+HOW:
+Step 1: create a handle submit function that includes saving it into localStorage
+Step 2: We add the handleSubmit as an OnSubmit prop ont he form in JSX- make sure that the function is being called when the user clicks submit
+Step 3: _______
+Add more steps as needed!
+
+------------------------
+📊 SAVED COUNTRIES DATA 
+------------------------
+
+WHAT data should we store & retrieve? 
+
+KEY: "_______"
+VALUE: _______
+VALUE DATA TYPE: _______
+EXAMPLE VALUE: _______
+
+------------------------
+🔶 STORING SAVED COUNTRIES DATA 
+------------------------
+
+WHEN: _______
+
+WHERE: _______
+
+HOW: 
+Step 1: _______
+Step 2: _______
+Step 3: _______
+Add more steps as needed! 
+
+------------------------
+🔶 RETRIEVING SAVED COUNTRIES DATA 
+------------------------
+
+WHEN: _______
+
+WHERE: _______
+
+HOW: 
+Step 1: _______
+Step 2: _______
+Step 3: _______
+Add more steps as needed! 
+
+------------------------
+📊 COUNTRY COUNTS DATA 
+------------------------
+
+WHAT data should we store & retrieve? 
+
+KEY: "_______"
+VALUE: _______
+VALUE DATA TYPE: _______
+EXAMPLE VALUE: _______
+
+------------------------
+🔶 STORING & RETRIEVING COUNTRY COUNTS DATA 
+------------------------
+NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.
+
+WHEN: _______
+
+WHERE: _______
+
+HOW: 
+Step 1: _______
+Step 2: _______
+Step 3: _______
+Add more steps as needed! 
