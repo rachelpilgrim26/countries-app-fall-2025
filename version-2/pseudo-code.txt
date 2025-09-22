@@ -62,7 +62,7 @@ This is our WHAT, WHEN, WHERE, HOW framework for working with data:
    List the key/value pair, data type, example value.
 
 2. WHEN should we store & retrieve the data? 
-   What event or user action is the trigger, such as clicking a button, submitting a form, or loading a page? 
+   What event or user action is the trigger,x such as clicking a button, submitting a form, or loading a page? 
 
 3. WHERE does this happen in the code? 
    What component, page or function? 
@@ -108,61 +108,51 @@ Add more steps as needed!
 
 WHAT data should we store & retrieve? 
 
-KEY: "_______"
-VALUE: _______
-VALUE DATA TYPE: _______
-EXAMPLE VALUE: _______
+KEY: "savedCountries"
+VALUE: an array of saved country name 
+VALUE DATA TYPE: an array of strings
+EXAMPLE VALUE: [untied states, mexico]
 
 ------------------------
 🔶 STORING SAVED COUNTRIES DATA 
 ------------------------
 
-WHEN: _______
 
-WHERE: _______
+WHERE: on details page on the save button 
 
-HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
-Add more steps as needed! 
-
+HOW: 
+Step 1: We need to attach an onClick handler to the Save button on the CountryDetail page
+Step 2: When the user clicks on the Save button, call the handleClick function
+Step 3: The handleClick function needs to save the country's name in localStorage
+Step 4: 
+The handleClick function will first get the array of saved countries from local Storage. 
+If the country is already saved, then there is no need to save the country. If the country is not saved yet, then add the country's name to the array of savedCountries and store that value in localStorage.
 ------------------------
 🔶 RETRIEVING SAVED COUNTRIES DATA 
 ------------------------
 
-WHEN: _______
+WHEN: When the Saved Countries page first loads
 
-WHERE: _______
+WHERE: Local Storage key savedCountries
 
 HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
+Step 1: Read the text from localStorage.getItem savedCountries
+Step 2: If there is text turn it back into a list with JSON.parse
+Step 3: Put that list into state your saved  savedCountries state so you can .map() and show the cards
 Add more steps as needed! 
 
 ------------------------
 📊 COUNTRY COUNTS DATA 
-------------------------
+-----------------------
+WHEN: on page load when the saved countriesz load
+WHERE: on saved countries page in the saved countries section 
 
-WHAT data should we store & retrieve? 
+HOW: 
+Step 1: Make a useEffect that runs on page load. It will...
+Step 2: Get the array of savedCountries from localStorage
+Step 3: Store it in a state variable.
+Step 4: Render by mapping over the array of objects and render a country card for each 
 
-KEY: "_______"
-VALUE: _______
-VALUE DATA TYPE: _______
-EXAMPLE VALUE: _______
-
-------------------------
-🔶 STORING & RETRIEVING COUNTRY COUNTS DATA 
-------------------------
-NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.
-
-WHEN: _______
-
-WHERE: _______
-
-HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
-Add more steps as needed! 
+ 🔶 STORING & RETRIEVING COUNTRY COUNTS DATA 
+ --------------------
+ NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.

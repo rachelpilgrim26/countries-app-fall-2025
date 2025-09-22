@@ -1,115 +1,122 @@
-// import react and the hooks we need
+// import react so we can build a component and use hooks
 import React, { useState, useEffect } from "react";
-// useState stores form and user useEffect runs once on load
+// import the card so saved countries look the same as on the home page
+import CountryCard from "../components/CountryCard.jsx";
 
-// export the SavedCountries page so the compponet can show it
+// export the saved countries page component
 export default function SavedCountries() {
-  // make state for the form inputs your same variable names
-  const [form, setForm] = useState({
-    // holds what the user types
-    name: "",
-    email: "",
-    country: "",
-    bio: "",
-  });
+  // a blank shape for the form so we can reset it after submit
+  const emptyFormState = { name: "", email: "", country: "", bio: "" };
 
-  // make state for the saved user profile null means none saved yet
+  // formData holds what the user types
+  const [formData, setFormData] = useState(emptyFormState);
+  // userInfo holds the saved profile or null when there is none
   const [userInfo, setUserInfo] = useState(null);
+  // saved holds the list of saved country objects for the grid
+  const [saved, setSaved] = useState([]);
 
-  // run once when the page loads to see if we already saved a profile before
+  // update formData when any input changes
+
+  const handleChange = (changeEvent) => {
+    const { name, value } = changeEvent.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // stop page reload
+    console.log(formData, "form was submitted");
+    // show what was sent
+    const stringified = JSON.stringify(formData);
+    // make text for storage
+    localStorage.setItem("profile", stringified);
+    // save to localStorage
+    setUserInfo(formData);
+    // show welcome
+    setFormData(emptyFormState);
+    // reset inputs
+  };
+
   useEffect(() => {
-    // this effect runs after the first render
-    const saved = localStorage.getItem("profile");
-    if (saved) {
-      // if something was found
-      try {
-        // try to turn the string back into an object
-        const obj = JSON.parse(saved);
-        // may fail if the saved data is broken
-        setUserInfo(obj);
-        // if it worked, remember it so we can say "Welcome"
-      } catch {
-        // if JSON.parse fails bad data
-        localStorage.removeItem("profile");
-        // remove the bad value so the page can show the form
-      }
+    // check if a profile was saved before
+    if (localStorage.getItem("profile")) {
+      // read the saved profile text
+      const profileText = localStorage.getItem("profile");
+      // turn the text back into an object
+      const profileObject = JSON.parse(profileText);
+      // store it in state so the welcome shows
+      setUserInfo(profileObject);
+    }
+    // check if any countries were saved before
+    if (localStorage.getItem("savedCountries")) {
+      // read the saved countries text
+      const savedCountriesText = localStorage.getItem("savedCountries");
+      // turn the text back into a list
+      const savedCountriesList = JSON.parse(savedCountriesText);
+      // store it in state so the grid can render
+      setSaved(savedCountriesList);
     }
   }, []);
-  // empty array means run only once on page load
 
-  // handle typing in the inputs
-  function onChange(e) {
-    // called every time the user types
-    setForm({ ...form, [e.target.name]: e.target.value });
-    // copy old form and update just one
-  }
+  const welcome = userInfo && <h2>welcome, {userInfo.name}</h2>;
 
-  // handle the form submit
-  function onSubmit(e) {
-    // called when the user clicks Save
-    e.preventDefault();
-    // stop page refresh
-    localStorage.setItem("profile", JSON.stringify(form));
-    // save the form to localStorage as a string
-    setUserInfo(form);
-    // switch to the welcome view right away
-    setForm({ name: "", email: "", country: "", bio: "" });
-    // clear inputs back to empty
-  }
-
-  // if we already have a saved profile just show Welcome user
-  if (userInfo) {
-    // true when data exists in userInfo
-    return (
-      // show only the welcome message
-      <section className="saved">
-        <h2>Welcome, {userInfo.name}!</h2>
-      </section>
+  // decide if we should show the form only when there is no saved profile
+  let formSection = null;
+  if (userInfo === null) {
+    formSection = (
+      <>
+        <h1>my profile</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            name="name"
+            placeholder="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+          <input
+            name="email"
+            placeholder="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            name="country"
+            placeholder="country"
+            value={formData.country}
+            onChange={handleChange}
+          />
+          <textarea
+            name="bio"
+            placeholder="bio"
+            value={formData.bio}
+            onChange={handleChange}
+          />
+          <button type="submit">save</button>
+        </form>
+      </>
     );
   }
 
-  // if there is no saved profile yet show the form
+  // show the saved countries page
   return (
-    // render the form
     <section className="saved">
-      {" "}
-      {/* page wrapper */}
-      <h1>My Profile</h1>
-      <form onSubmit={onSubmit}>
-        {/* {" "} */}
-        <input
-          name="name"
-          placeholder="name"
-          value={form.name}
-          onChange={onChange}
-          type="text"
-          required
-        />
-        <input
-          name="email"
-          placeholder="email"
-          value={form.email}
-          onChange={onChange}
-          type="email"
-          required
-        />
-        <input
-          name="country"
-          placeholder="country"
-          value={form.country}
-          onChange={onChange}
-          type="text"
-          required
-        />
-        <textarea
-          name="bio"
-          placeholder="bio"
-          value={form.bio}
-          onChange={onChange}
-          required
-        />
-        <button type="submit">Save</button>
-      </form>
+      {/* show welcome if we have a saved profile */}
+      {welcome}
+
+      {/* show the form only when there is no saved profile */}
+      {formSection}
+
+      {/* show the saved countries grid */}
+      <h2>saved countries</h2>
+      <div className="grid">
+        {/* if statement is jsx its called logical && conditional rendering*/}
+        {saved.length === 0 && <p>no saved countries yet</p>}
+        {saved.map((savedCountry) => (
+          <div key={savedCountry.name.common} className="cell">
+            <CountryCard country={savedCountry} />
+          </div>
+        ))}
+      </div>
     </section>
   );
 }
