@@ -40,6 +40,7 @@ export default function CountryDetails({ countries }) {
   // when the user clicks save store this country in localStorage if not already there
   function handleSave() {
     // Read the savedCountries array from localStorage parse it or use an empty array if nothing is saved yet
+    // bascilly destringfy and parse doing two steps in one concatenation
     let saved = JSON.parse(localStorage.getItem("savedCountries")) || [];
 
     // check if this exact country is already in saved by comparing the same name.common returns the object or undefined

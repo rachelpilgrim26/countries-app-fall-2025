@@ -24,7 +24,7 @@ export default function SavedCountries() {
 
   // eventpreventDefault prevents the browsers default form submit then console.log logs the form data for debugging or to see the data
   // JSON.stringify(formData) creates a string because localStorage can only store strings
-  // localStorage.setItem("profile", stringified) makes that string under the key "profile" it works page reload
+  // localStorage.setItem("profile") stringified makes that string under the key "profile" it works page reload
   // setUserInfo(formData) updates state so the UI switches to the welcome view immediately without waiting for a reload
   // setFormData(emptyFormState) clears the inputs making the form blank again
   const handleSubmit = (event) => {
