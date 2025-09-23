@@ -40,54 +40,53 @@ export default function SavedCountries({ countries }) {
     setFormData(emptyFormState);
     // reset inputs making the form look new and ready to fill out
   };
-  useEffect(() => {
-    // get the saved profile text from the browser storage
-    const profileText = localStorage.getItem("profile");
-    if (profileText) {
-      try {
-        // turn the text into an object i can use
-        const profileObject = JSON.parse(profileText);
-        // save it into state so the page can show "welcome, name"
-        setUserInfo(profileObject);
-      } catch (err) {
-        // if the saved text is broken skip it so the app doesnt break the code
-      }
-    }
-    // get the saved countries text from the browser storage
-    const savedNamesText = localStorage.getItem("saved-countries");
-    // start with an empty list in case nothing is saved
-    let savedNamesList = [];
-    // if we found some text for saved countries
-    if (savedNamesText) {
-      try {
-        // turn the text into an array of names  ["Jamaica","Comoros"])
-        savedNamesList = JSON.parse(savedNamesText);
-      } catch (err) {
-        // if the text is broken just use empty array so no eroors
-        savedNamesList = [];
-      }
-    }
-    // make a new empty list where we will store the real country objects
-    const savedObjects = [];
-    // go through every saved name string we found
-    for (let i = 0; i < savedNamesList.length; i++) {
-      // pick one saved name
-      const savedName = savedNamesList[i];
 
-      // look for the full country object in the big countries list
-      const match = countries.find(
-        (countryItem) => countryItem.name.common === savedName
-      );
-      // if we found it add it to the savedObjects list
-      if (match) {
-        savedObjects.push(match);
+  useEffect(() => {
+    // this runs after the page first draws and anytime countries change
+
+    // get profile if saved
+    const profileText = localStorage.getItem("profile");
+    // look in the browsers storage for the "profile" text might be null
+
+    if (profileText) {
+      // only try to use it if something was found
+      try {
+        const profileObject = JSON.parse(profileText);
+        // turn the saved text into a real javascript object we can use
+        setUserInfo(profileObject);
+        // put that object into state so the screen can say things like "welcome, name"
+      } catch (error) {
+        // if the saved text is broken or not real JSON ignore it so the app does not throw error
       }
     }
-    // update the state with the real country objects
-    // this makes React show the page and show CountryCard components
+
+    // get saved country names
+    const savedNamesText = localStorage.getItem("saved-countries");
+    // read the list of saved country names as readable text or null
+    let savedNamesList = [];
+    // start with an empty list in case nothing is saved or the text isnt working
+
+    try {
+      savedNamesList = savedNamesText ? JSON.parse(savedNamesText) : [];
+      // if we do have text try to turn it into an array like ["Jamaica","Comoros"]
+    } catch (error) {
+      savedNamesList = [];
+      // if the text is broken keep it safe by using an empty list
+    }
+
+    // filter countries keep only the ones in savedNamesList
+    const savedObjects = countries.filter(
+      (
+        countryItem
+        // go through every country object we got from props
+      ) => savedNamesList.includes(countryItem.name.common)
+      // keep it only if its common name is inside our saved names list
+    );
+
     setSaved(savedObjects);
-    // run this effect again every time countries changes
+    // store the real country objects in state so the UI can show the CountryCard components
   }, [countries]);
+  // run this whole effect again if and only if the "countries" list changes
 
   const welcome = userInfo && <h2>welcome, {userInfo.name}</h2>;
   // decide if we should show the form only when there is no saved profile
