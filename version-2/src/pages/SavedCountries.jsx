@@ -14,6 +14,7 @@ export default function SavedCountries({ countries }) {
   const [userInfo, setUserInfo] = useState(null);
   // saved holds the list of saved country objects for the grid
   const [saved, setSaved] = useState([]);
+
   //  arrow function assigned to a varilbe this is an event handler for input onChange.
   const handleChange = (changeEvent) => {
     const { name, value } = changeEvent.target;
@@ -39,7 +40,6 @@ export default function SavedCountries({ countries }) {
     setFormData(emptyFormState);
     // reset inputs making the form look new and ready to fill out
   };
-
   useEffect(() => {
     // get the saved profile text from the browser storage
     const profileText = localStorage.getItem("profile");
@@ -53,7 +53,6 @@ export default function SavedCountries({ countries }) {
         // if the saved text is broken skip it so the app doesnt break the code
       }
     }
-
     // get the saved countries text from the browser storage
     const savedNamesText = localStorage.getItem("saved-countries");
     // start with an empty list in case nothing is saved
