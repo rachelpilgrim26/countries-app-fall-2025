@@ -51,7 +51,10 @@ export default function App() {
         <Routes>
           {/* passing data from parent to child */}
           <Route path="/" element={<Home countries={list} />} />
-          <Route path="/saved" element={<SavedCountries />} />
+
+          {/*  define a Route and pass the correct prop (list) */}
+          <Route path="/saved" element={<SavedCountries countries={list} />} />
+
           <Route
             path="/country/:countryName"
             element={<CountryDetails countries={list} />}

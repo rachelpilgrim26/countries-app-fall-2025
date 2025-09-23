@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 // export a component that shows details for one country
-// prop countries array of country objects
 export default function CountryDetails({ countries }) {
   // read the :countryName piece from the url like /country/France
   const { countryName } = useParams();
@@ -12,46 +11,36 @@ export default function CountryDetails({ countries }) {
   const country = countries.find(
     (countryItem) => countryItem.name.common === countryName
   );
-  // make a little state number to show how many times this page was viewed
+  // make a setter in usestate number to show how many times this page was viewed
   const [views, setViews] = useState(0);
-  // when the country changes or the page loads, update the view counter
+
   useEffect(() => {
     // if there is no matching country do nothing
     if (!country) return;
-
-    // fetches a string or null parse means turn it to json || gives it an empty ogbject
-    let counts = JSON.parse(localStorage.getItem("viewCounts")) || {};
-
-    // get the unique id this will be the key in counts
-    // variable countryId string
+    // use the country name as the storage key
     const countryId = country.name.common;
+    // read the current count (string or null) and default to "0"
+    const countString = localStorage.getItem(countryId) || "0";
+    // make it a number and add 1
+    const nextCountNumber = Number(countString) + 1;
+    // write it back under the country name key one key per country
+    localStorage.setItem(countryId, JSON.stringify(nextCountNumber));
 
-    // increase the number for this country by 1 start at 0 if missing
-    counts[countryId] = (counts[countryId] || 0) + 1;
-
-    // save the updated counts object back into localStorage turns into a string for storage
-    localStorage.setItem("viewCounts", JSON.stringify(counts));
-
-    // update our views so the screen shows the new number
-    setViews(counts[countryId]);
-  }, [country]); // dependency array for the effect
+    // update state so the screen shows the new number
+    setViews(nextCountNumber);
+  }, [country]);
   // run again if the country changes
 
-  // when the user clicks save store this country in localStorage if not already there
   function handleSave() {
-    // Read the savedCountries array from localStorage parse it or use an empty array if nothing is saved yet
+    // read the savedCountries array from localStorage parse it or use an empty array if nothing is saved yet
     // bascilly destringfy and parse doing two steps in one concatenation
-    let saved = JSON.parse(localStorage.getItem("savedCountries")) || [];
-
+    let saved = JSON.parse(localStorage.getItem("saved-countries")) || [];
     // check if this exact country is already in saved by comparing the same name.common returns the object or undefined
-    const already = saved.find(
-      (savedItem) => savedItem.name.common === country.name.common
-    );
-
+    const already = saved.find((savedItem) => savedItem === countryName);
     // this conditional only add if not saved add it and write the new array back to storage
     if (!already) {
-      saved.push(country);
-      localStorage.setItem("savedCountries", JSON.stringify(saved));
+      saved.push(countryName); // push the name string not the whole object
+      localStorage.setItem("saved-countries", JSON.stringify(saved));
     }
   }
 

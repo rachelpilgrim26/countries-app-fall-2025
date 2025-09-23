@@ -153,6 +153,21 @@ Step 2: Get the array of savedCountries from localStorage
 Step 3: Store it in a state variable.
 Step 4: Render by mapping over the array of objects and render a country card for each 
 
- 🔶 STORING & RETRIEVING COUNTRY COUNTS DATA 
- --------------------
- NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.
+------------------------
+🔶 STORING & RETRIEVING COUNTRY COUNTS DATA 
+------------------------
+NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.
+
+WHEN: When the user visits a country’s details page, on page load (think useEffect)
+
+WHERE: In the country detail page
+
+HOW: 
+Step 1: useState for viewCount
+Step 2: useEffect to:
+Retrieve the current viewCount
+Add one
+Store the new number in local storage
+Step 3: Update the value of viewCount using setViewCount
+Step 4: Show the viewCount variable to the user by rendering it in the JSX
+

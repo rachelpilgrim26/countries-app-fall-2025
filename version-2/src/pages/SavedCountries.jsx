@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import CountryCard from "../components/CountryCard.jsx";
 
 // export the saved countries page component
-export default function SavedCountries() {
+export default function SavedCountries({ countries }) {
   //  a blank state for the form so we can reset it after submit
   const emptyFormState = { name: "", email: "", country: "", bio: "" };
 
@@ -14,9 +14,7 @@ export default function SavedCountries() {
   const [userInfo, setUserInfo] = useState(null);
   // saved holds the list of saved country objects for the grid
   const [saved, setSaved] = useState([]);
-
   //  arrow function assigned to a varilbe this is an event handler for input onChange.
-
   const handleChange = (changeEvent) => {
     const { name, value } = changeEvent.target;
     setFormData({ ...formData, [name]: value });
@@ -42,31 +40,56 @@ export default function SavedCountries() {
     // reset inputs making the form look new and ready to fill out
   };
 
-  // useeffct hook with an empty dependency list ([]) means it runs once after the first render
-  // reads strings with localStorage.getItem returns null if missing
-  // JSON.parse turns those strings back to objects/arrays
-  // updates userInfo and saved so your UI loads with prior state
   useEffect(() => {
-    // check if a profile was saved before
-    if (localStorage.getItem("profile")) {
-      // read the saved profile text
-      const profileText = localStorage.getItem("profile");
-      // turn the text back into an object
-      const profileObject = JSON.parse(profileText);
-      // store it in state so the welcome shows
-      setUserInfo(profileObject);
+    // get the saved profile text from the browser storage
+    const profileText = localStorage.getItem("profile");
+    if (profileText) {
+      try {
+        // turn the text into an object i can use
+        const profileObject = JSON.parse(profileText);
+        // save it into state so the page can show "welcome, name"
+        setUserInfo(profileObject);
+      } catch (err) {
+        // if the saved text is broken skip it so the app doesnt break the code
+      }
     }
-    // check if any countries were saved before
-    if (localStorage.getItem("savedCountries")) {
-      // read the saved countries text
-      const savedCountriesText = localStorage.getItem("savedCountries");
-      // turn the text back into a list of objects/arrays
-      const savedCountriesList = JSON.parse(savedCountriesText);
-      // store it in state so i can render
-      setSaved(savedCountriesList);
+
+    // get the saved countries text from the browser storage
+    const savedNamesText = localStorage.getItem("saved-countries");
+    // start with an empty list in case nothing is saved
+    let savedNamesList = [];
+    // if we found some text for saved countries
+    if (savedNamesText) {
+      try {
+        // turn the text into an array of names  ["Jamaica","Comoros"])
+        savedNamesList = JSON.parse(savedNamesText);
+      } catch (err) {
+        // if the text is broken just use empty array so no eroors
+        savedNamesList = [];
+      }
     }
-  }, []);
-  // useeffect is bascially synchoronizing your componet with an external system in the browsers stoarge
+    // make a new empty list where we will store the real country objects
+    const savedObjects = [];
+    // go through every saved name string we found
+    for (let i = 0; i < savedNamesList.length; i++) {
+      // pick one saved name
+      const savedName = savedNamesList[i];
+
+      // look for the full country object in the big countries list
+      const match = countries.find(
+        (countryItem) => countryItem.name.common === savedName
+      );
+      // if we found it add it to the savedObjects list
+      if (match) {
+        savedObjects.push(match);
+      }
+    }
+    // update the state with the real country objects
+    // this makes React show the page and show CountryCard components
+    setSaved(savedObjects);
+    // run this effect again every time countries changes
+  }, [countries]);
+
   const welcome = userInfo && <h2>welcome, {userInfo.name}</h2>;
   // decide if we should show the form only when there is no saved profile
   let formSection = null;
