@@ -35,18 +35,24 @@ This is our WHAT, WHEN, WHERE, HOW framework for working with data:
 ------------------------
 
 WHAT...
-  TYPE OF HTTP REQUEST (GET OR POST): _______
-  API ENDPOINT: _______
+  TYPE OF HTTP REQUEST (GET OR POST): POST
+  API ENDPOINT: /add-one-user
 
-  REQUEST BODY DATA TYPE (if applicable): _______
-  REQUEST BODY (if applicable): _______
+  REQUEST BODY DATA TYPE (if applicable): Object
+  REQUEST BODY (if applicable):[
+  {
+  "name": "Alice",
+  "country_name": "Germany",
+  "email": "alice@example.com",
+  "bio"
+  }
   
-  RESPONSE DATA TYPE: _______
-  RESPONSE: _______
+  RESPONSE DATA TYPE: String 
+  RESPONSE: Sucess! user has been added.
 
-WHEN: _______
+WHEN: user clicks submit on the form 
 
-WHERE: _______
+WHERE: in the handle submit file saved countires page
 
 HOW: 
 Step 1: _______
@@ -58,18 +64,27 @@ Add more steps as needed!
 🔶 RETRIEVING FORM DATA 
 ------------------------
 WHAT...
-  TYPE OF HTTP REQUEST (GET OR POST): _______
-  API ENDPOINT: _______
+  TYPE OF HTTP REQUEST (GET OR POST): GET 
+  API ENDPOINT: get newest user 
 
-  REQUEST BODY DATA TYPE (if applicable): _______
-  REQUEST BODY (if applicable): _______
+  REQUEST BODY DATA TYPE (if applicable): array of objects 
+  REQUEST BODY (if applicable): 
+  [
+  {
+    "user_id": 42,
+    "name": "John Smith",
+    "country_name": "Canada",
+    "email": "john@example.com",
+    "bio": "Another bio"
+  }
+]
   
-  RESPONSE DATA TYPE: _______
-  RESPONSE: _______
+  RESPONSE DATA TYPE: array with one user object the newest
+  RESPONSE: array of ogjects 
   
-WHEN: _______
+WHEN: on page load
 
-WHERE: _______
+WHERE: on the saved countires **** not really sure 
 
 HOW: 
 Step 1: _______
@@ -86,18 +101,21 @@ Add more steps as needed!
 ------------------------
 
 WHAT...
-  TYPE OF HTTP REQUEST (GET OR POST): _______
-  API ENDPOINT: _______
+  TYPE OF HTTP REQUEST (GET OR POST): post 
+  API ENDPOINT: save-one-country 
 
-  REQUEST BODY DATA TYPE (if applicable): _______
-  REQUEST BODY (if applicable): _______
+  REQUEST BODY DATA TYPE (if applicable):  JSON/OBJECT
+  REQUEST BODY (if applicable): string 
+  {
+  "country_name": "France"
+}
   
-  RESPONSE DATA TYPE: _______
-  RESPONSE: _______
+  RESPONSE DATA TYPE: string
+  RESPONSE: Success! The country is saved.
 
-WHEN: _______
+WHEN: When the user clicks a save button next to a country
 
-WHERE: _______
+WHERE: In the country detail page  component
 
 HOW: 
 Step 1: _______
@@ -110,18 +128,25 @@ Add more steps as needed!
 ------------------------
 
 WHAT...
-  TYPE OF HTTP REQUEST (GET OR POST): _______
-  API ENDPOINT: _______
+  TYPE OF HTTP REQUEST (GET OR POST): GET
+  API ENDPOINT: get-all-saved-countries 
 
-  REQUEST BODY DATA TYPE (if applicable): _______
-  REQUEST BODY (if applicable): _______
+  REQUEST BODY DATA TYPE (if applicable):  JSON/ ARAAY of objects 
+  REQUEST BODY (if applicable): [
+  {
+    "country_name": "Japan"
+  },
+  {
+    "country_name": "Germany"
+  }
+]
   
-  RESPONSE DATA TYPE: _______
-  RESPONSE: _______
+  RESPONSE DATA TYPE: array of objects
+  RESPONSE: will send back the array ****
 
-WHEN: _______
+WHEN: on page load for a Saved Countries page
 
-WHERE: _______
+WHERE: In a saved-countries page
 
 HOW: 
 Step 1: _______
@@ -139,18 +164,21 @@ Add more steps as needed!
 NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.
 
 WHAT...
-  TYPE OF HTTP REQUEST (GET OR POST): _______
-  API ENDPOINT: _______
+  TYPE OF HTTP REQUEST (GET OR POST): POST
+  API ENDPOINT: /update-one-country-count
 
-  REQUEST BODY DATA TYPE (if applicable): _______
-  REQUEST BODY (if applicable): _______
+  REQUEST BODY DATA TYPE (if applicable): string 
+  REQUEST BODY (if applicable): { "country_name": "string" }
   
-  RESPONSE DATA TYPE: _______
-  RESPONSE: _______
+  RESPONSE DATA TYPE: { "count": number 
+  RESPONSE:
+  {
+    "count": 3
+}
   
-WHEN: _______
+WHEN: on page loads 
 
-WHERE: _______
+WHERE: country details page 
 
 HOW: 
 Step 1: _______
