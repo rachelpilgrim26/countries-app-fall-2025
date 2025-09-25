@@ -47,7 +47,6 @@ export default function SavedCountries({ countries }) {
     // get profile if saved
     const profileText = localStorage.getItem("profile");
     // look in the browsers storage for the "profile" text might be null
-
     if (profileText) {
       // only try to use it if something was found
       try {
@@ -59,7 +58,13 @@ export default function SavedCountries({ countries }) {
         // if the saved text is broken or not real JSON ignore it so the app does not throw error
       }
     }
-
+    //the useEffect hook ensures a seamless user experience by performing the following actions on the components initial load
+    // * It checks for a previously saved user profile
+    // * It safely parses the profile data
+    // * It automatically logs the user in if the data is valid
+    // * It gracefully handles corrupted data by deleting it allowing the application to reset and show the login form
+    //this is where i got it at because the other way i had it didnt show me the correct data in my local storage so i looked up way on the internet and found this and it worked
+    //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/try...catch#:~:text=catch%20statement%20is%20comprised%20of,flow%20exits%20the%20entire%20construct.
     // get saved country names
     const savedNamesText = localStorage.getItem("saved-countries");
     // read the list of saved country names as readable text or null
@@ -73,7 +78,7 @@ export default function SavedCountries({ countries }) {
       savedNamesList = [];
       // if the text is broken keep it safe by using an empty list
     }
-
+    //I run a one-time useEffect to restore the users profile from the browsers storage after the first render Storage only stores string so I safely convert the string back to an object with JSON.parse. because JSON.parse can throw bad data because it might have # or . I wrap just that line in try/catch If it parses I update React state so the UI greets the user immediately if it fails I delete the bad value so we don’t keep breaking on future loads
     // filter countries keep only the ones in savedNamesList
     const savedObjects = countries.filter(
       (
