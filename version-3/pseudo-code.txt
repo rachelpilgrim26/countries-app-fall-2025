@@ -1,138 +1,109 @@
 -------------------------------------
-🧠 VERSION 3 PSEUDO-CODE WORKSHEET 
+:brain: VERSION 3 PSEUDO-CODE WORKSHEET
 -------------------------------------
-
 This is our WHAT, WHEN, WHERE, HOW framework for working with data:
-
-1. WHAT data should we store & retrieve? 
-   What kind of HTTP request do we need to send, and to what API endpoint? 
-   If we are sending a POST request, what do we need to send in the request body, and what is the data type? 
-   What would we get back in the response, and what is the data type? 
-  
-2. WHEN should we store & retrieve the data? 
-   What event or user action is the trigger, such as clicking a button, submitting a form, or loading a page? 
-
-3. WHERE does this happen in the code? 
-   What component, page or function? 
-
-4. HOW do we accomplish this? 
-   What steps do we need to take? 
+1. WHAT data should we store & retrieve?
+   What kind of HTTP request do we need to send, and to what API endpoint?
+   If we are sending a POST request, what do we need to send in the request body, and what is the data type?
+   What would we get back in the response, and what is the data type?
+2. WHEN should we store & retrieve the data?
+   What event or user action is the trigger, such as clicking a button, submitting a form, or loading a page?
+3. WHERE does this happen in the code?
+   What component, page or function?
+4. HOW do we accomplish this?
+   What steps do we need to take?
    Do we need to...
-    - make any GET or POST requests to an API endpoint? 
-    - render anything in JSX? 
-    - make any functions? If so, when would we call those functions? 
-    - use any useState or useEffect hooks? 
-  Remember: This is pseudo-code. Don't write code yet — just outline the actions in plain language. 
-
-✨ YOUR TASK: Fill in the answers to each WHAT/WHEN/WHERE/HOW question below for the 3 pieces of data. 
-
+    - make any GET or POST requests to an API endpoint?
+    - render anything in JSX?
+    - make any functions? If so, when would we call those functions?
+    - use any useState or useEffect hooks?
+  Remember: This is pseudo-code. Don't write code yet — just outline the actions in plain language.
+:sparkles: YOUR TASK: Fill in the answers to each WHAT/WHEN/WHERE/HOW question below for the 3 pieces of data.
 ------------------------
-📊 FORM DATA 
+:bar_chart: FORM DATA
 ------------------------
-
 ------------------------
-🔶 STORING FORM DATA 
+:large_orange_diamond: STORING FORM DATA
 ------------------------
-
 WHAT...
   TYPE OF HTTP REQUEST (GET OR POST): POST
-  API ENDPOINT: /add-one-user
-
+  API ENDPOINT: 	/add-one-user
   REQUEST BODY DATA TYPE (if applicable): Object
-  REQUEST BODY (if applicable):[
+  REQUEST BODY (if applicable):
   {
   "name": "Alice",
   "country_name": "Germany",
   "email": "alice@example.com",
-  "bio"
-  }
-  
-  RESPONSE DATA TYPE: String 
-  RESPONSE: Sucess! user has been added.
-
-WHEN: user clicks submit on the form 
-
-WHERE: in the handle submit file saved countires page
-
-HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
-Add more steps as needed! 
-
-------------------------
-🔶 RETRIEVING FORM DATA 
-------------------------
-WHAT...
-  TYPE OF HTTP REQUEST (GET OR POST): GET 
-  API ENDPOINT: get newest user 
-
-  REQUEST BODY DATA TYPE (if applicable): array of objects 
-  REQUEST BODY (if applicable): 
-  [
-  {
-    "user_id": 42,
-    "name": "John Smith",
-    "country_name": "Canada",
-    "email": "john@example.com",
-    "bio": "Another bio"
-  }
-]
-  
-  RESPONSE DATA TYPE: array with one user object the newest
-  RESPONSE: array of ogjects 
-  
-WHEN: on page load
-
-WHERE: on the saved countires **** not really sure 
-
-HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
-Add more steps as needed! 
-
-------------------------
-📊 SAVED COUNTRIES DATA 
-------------------------
-
-------------------------
-🔶 STORING SAVED COUNTRIES DATA 
-------------------------
-
-WHAT...
-  TYPE OF HTTP REQUEST (GET OR POST): post 
-  API ENDPOINT: save-one-country 
-
-  REQUEST BODY DATA TYPE (if applicable):  JSON/OBJECT
-  REQUEST BODY (if applicable): string 
-  {
-  "country_name": "France"
+  "bio": "A little about Alice"
 }
-  
   RESPONSE DATA TYPE: string
-  RESPONSE: Success! The country is saved.
-
-WHEN: When the user clicks a save button next to a country
-
-WHERE: In the country detail page  component
-
-HOW: 
-Step 1: _______
-Step 2: _______
+  RESPONSE: Success! User has been added.
+WHEN: onClick when the user clicks submit
+WHERE: in the handle submit function on the saved countries page and will send it to the server side infrastructure (postman)
+HOW:
+Step 1: Declare a new function called storeUserData() which should send a POST request to the APT to the /add-one-user endpoint
+Step 2: Call the storeUserData() function on submit
 Step 3: _______
-Add more steps as needed! 
-
+Add more steps as needed!
 ------------------------
-🔶 RETRIEVING SAVED COUNTRIES DATA 
+:large_orange_diamond: RETRIEVING FORM DATA
 ------------------------
-
 WHAT...
   TYPE OF HTTP REQUEST (GET OR POST): GET
-  API ENDPOINT: get-all-saved-countries 
-
-  REQUEST BODY DATA TYPE (if applicable):  JSON/ ARAAY of objects 
-  REQUEST BODY (if applicable): [
+  API ENDPOINT: /get-newest-user
+  REQUEST BODY DATA TYPE (if applicable): N/A
+  REQUEST BODY (if applicable):
+  N/A
+  RESPONSE DATA TYPE:  array of objects
+  RESPONSE: [
+    {
+        "user_id": 200,
+        "name": "Rachel",
+        "country_name": "Mexico",
+        "email": "alice@example.com",
+        "bio": "A little about Alice"
+    }
+]
+WHEN: On page load.
+***WHERE: in the savedCountries page
+HOW:
+Step 1: Make a function called getNewestUser () that will get the form data from the API by sending a get request to the /get-newest-user-endpoint
+Step 2: After you get the form data. Save the form data in a state variable using useState() this way you can render what's in teh state variable into the JSX in step 4 n
+Step 3: Call the getNewestUser() function on page load in the useEffect()
+Step 4: Cnoditionally render teh user's name in the return stement (in JSX) if the user's name exsists
+------------------------
+:bar_chart: SAVED COUNTRIES DATA
+------------------------
+------------------------
+:large_orange_diamond: STORING SAVED COUNTRIES DATA
+------------------------
+WHAT...
+  TYPE OF HTTP REQUEST (GET OR POST): POST
+  API ENDPOINT: /save-one-country
+  REQUEST BODY DATA TYPE (if applicable): JSON Object
+  REQUEST BODY (if applicable):
+  {
+  "country_name": "Brazil"
+}
+  RESPONSE DATA TYPE: string
+  RESPONSE: Success! The country is saved.
+WHEN: when user clicks save button
+WHERE: country detail page
+HOW:
+Step 1: Declare a new function called saveOneCountry() which should send a POST request to the POST request to the https://backend-answer-keys.onrender.com/save-one-country (save-one-conuntry is the end point ) on the country details page
+Step 2: Call the saveOneCountry() function on click when the save country heart button is clicked (useState)
+Step 3: _______
+Add more steps as needed!
+------------------------
+:large_orange_diamond: RETRIEVING SAVED COUNTRIES DATA
+------------------------
+WHAT...
+  TYPE OF HTTP REQUEST (GET OR POST): GET
+  API ENDPOINT: /get-all-saved-countries
+  REQUEST BODY DATA TYPE (if applicable): N/A
+REQUEST BODY (if applicable): N/A
+  RESPONSE DATA TYPE: JSON string
+  RESPONSE: [
   {
     "country_name": "Japan"
   },
@@ -140,48 +111,52 @@ WHAT...
     "country_name": "Germany"
   }
 ]
-  
-  RESPONSE DATA TYPE: array of objects
-  RESPONSE: will send back the array ****
-
-WHEN: on page load for a Saved Countries page
-
-WHERE: In a saved-countries page
-
-HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
-Add more steps as needed! 
-
+WHEN: on page load for the saved countries page
+WHERE: saved countries page
+HOW:
+Step 1: Make a function called getAllSavedCountries () that will get the saved countries data from the API by sending a get request to the /get-all-saved-countries endpoint
+Step 2: After you get the saved countries data. Save the saved countries data in a state variable using useState() this way you can render what's in the state variable into the JSX in step 4
+Step 3: Call the getAllSavedCountries() function on page load in the useEffect()
+Step 4: Conditionally render the saved countries cards if the saved countries are saved
 ------------------------
-📊 COUNTRY COUNTS DATA 
+:bar_chart: COUNTRY COUNTS DATA
 ------------------------
-
 ------------------------
-🔶 STORING & RETRIEVING COUNTRY COUNTS DATA 
+:large_orange_diamond: STORING & RETRIEVING COUNTRY COUNTS DATA
 ------------------------
 NOTE: We combine storing & retrieving country counts data into one section because they always happen together. Each time we look up a country’s view count, we also need to increase it and save the new total.
-
 WHAT...
   TYPE OF HTTP REQUEST (GET OR POST): POST
   API ENDPOINT: /update-one-country-count
-
-  REQUEST BODY DATA TYPE (if applicable): string 
-  REQUEST BODY (if applicable): { "country_name": "string" }
-  
-  RESPONSE DATA TYPE: { "count": number 
-  RESPONSE:
+  REQUEST BODY DATA TYPE (if applicable): JSON Object
+  REQUEST BODY (if applicable):
   {
+  "country_name": "France"
+}
+  RESPONSE DATA TYPE: JSON Object (integer)
+  RESPONSE: {
     "count": 3
 }
-  
-WHEN: on page loads 
+WHEN: on page load for the country hosted on the country details page
+WHERE: country details page
+HOW:
+Storing the counter POST:
+Step 1: Declare a new function called updateOneCountryCounter() which should send a POST request to the API end point /update-one-country-count
+step 2: save the count in a use state variable
+Step 2: Call the savedCounter() function on page load (useEffect)
+Step 3: render the count using a state variable in jsx
+Add more steps as needed!
 
-WHERE: country details page 
 
-HOW: 
-Step 1: _______
-Step 2: _______
-Step 3: _______
-Add more steps as needed! 
+
+
+
+
+
+
+
+
+
+
+
+
