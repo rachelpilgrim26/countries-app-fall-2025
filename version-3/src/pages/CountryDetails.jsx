@@ -4,34 +4,61 @@ import { useParams, Link } from "react-router-dom";
 export default function CountryDetails({ countries }) {
   const { countryName } = useParams();
 
+  // look through the "countries" array and return one matching country object
   const country = countries.find(
-    (countryItem) => countryItem.name.common === countryName
+    // for each item in the array call it "countryItem" so its very clear what it is
+    (countryItem) =>
+      // check if this countrys "common" name is exactly the same as "countryName"
+      countryItem.name.common === countryName
+    // if a match is found .find() stops and returns that object if no match it returns undefined
   );
+
   const [views, setViews] = useState(0);
 
+  // made an async function named CountryCount so we can use await inside it
   const CountryCount = async () => {
+    // send a network request to the server using fetch()
     const response = await fetch(
+      // the exact API endpoint that updates the view count for one country
       "https://backend-answer-keys.onrender.com/update-one-country-count",
       {
+        // tell the server were making a POST request we are sending data
         method: "POST",
+        // tell the server the body we send is JSON text
         headers: { "Content-Type": "application/json" },
+        // turn our js object into a json string and include the country name
         body: JSON.stringify({ country_name: country.name.common }),
       }
     );
+
+    // read the servers reply body as JSON turns the text back into a JS object
     const data = await response.json();
+
+    // save the new count from the server into React state so the UI updates
     setViews(data.count);
   };
 
+  // run some code after React renders and again whenever country changes
   useEffect(() => {
+    // only do the work if we actually have a matching country object
     if (country) {
+      // call the function that posts to the API and updates the views count
       CountryCount();
     }
-  }, [country]);
+    // putting country in the dependency list means
+    //  run once after the first render
+    //  run again any time country becomes a different value
+  }, [country]); // dependency array tells React when to re-run this effect
 
+  // made a function named handleSave that can use await
   async function handleSave() {
+    // send a request to your backend to save one country
     await fetch("https://backend-answer-keys.onrender.com/save-one-country", {
+      // Use POST because were sending data to change something on the server
       method: "POST",
+      // tell the server our request body is json text
       headers: { "Content-Type": "application/json" },
+      // turn our object into a json string before sending it over the network
       body: JSON.stringify({ country_name: country.name.common }),
     });
   }
