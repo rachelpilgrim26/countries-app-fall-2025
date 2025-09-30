@@ -42,7 +42,7 @@ export default function SavedCountries({ countries }) {
     setUserInfo({
       fullName: newestUserFromAPI.name,
       email: newestUserFromAPI.email,
-      country: newestUserFromAPI.country,
+      country: newestUserFromAPI.country_name,
       bio: newestUserFromAPI.bio,
     });
   };
@@ -51,24 +51,24 @@ export default function SavedCountries({ countries }) {
     getNewestUser();
   }, []);
 
-  useEffect(() => {
-    const savedNamesText = localStorage.getItem("saved-countries");
-    let savedNamesList = [];
-    try {
-      savedNamesList = savedNamesText ? JSON.parse(savedNamesText) : [];
-    } catch {
-      savedNamesList = [];
-    }
-    const savedObjects = countries.filter((countryItem) =>
-      savedNamesList.includes(countryItem.name.common)
+  const getSavedCountries = async () => {
+    const response = await fetch(
+      "https://backend-answer-keys.onrender.com/get-all-saved-countries"
     );
-    setSaved(savedObjects);
+    const data = await response.json();
+    const result = data.map((item) =>
+      countries.find((country) => country.name.common === item.country_name)
+    );
+    setSaved(result);
+  };
+
+  useEffect(() => {
+    if (countries.length) getSavedCountries();
   }, [countries]);
 
   return (
     <section className="saved">
       {userInfo && <h2>Welcome {userInfo.fullName}</h2>}
-
       <section className="Form">
         <h2>My Profile</h2>
         <form onSubmit={handleSubmit} name="my-profile">
@@ -107,15 +107,16 @@ export default function SavedCountries({ countries }) {
           <button type="submit">Submit</button>
         </form>
       </section>
-
       <h2>Saved Countries</h2>
       <div className="grid">
-        {saved.length === 0 && <p>No saved countries yet</p>}
-        {saved.map((countryItem) => (
-          <div key={countryItem.name.common} className="cell">
-            <CountryCard country={countryItem} />
-          </div>
-        ))}
+        {saved.map(
+          (countryItem) =>
+            countryItem && (
+              <div key={countryItem.name.common} className="cell">
+                <CountryCard country={countryItem} />
+              </div>
+            )
+        )}
       </div>
     </section>
   );

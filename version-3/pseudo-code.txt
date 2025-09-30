@@ -70,7 +70,7 @@ HOW:
 Step 1: Make a function called getNewestUser () that will get the form data from the API by sending a get request to the /get-newest-user-endpoint
 Step 2: After you get the form data. Save the form data in a state variable using useState() this way you can render what's in teh state variable into the JSX in step 4 n
 Step 3: Call the getNewestUser() function on page load in the useEffect()
-Step 4: Cnoditionally render teh user's name in the return stement (in JSX) if the user's name exsists
+Step 4: Conditionally render teh user's name in the return stement (in JSX) if the user's name exsists
 ------------------------
 :bar_chart: SAVED COUNTRIES DATA
 ------------------------
