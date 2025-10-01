@@ -41,7 +41,7 @@ export default function CountryDetails({ countries }) {
     await fetch("https://backend-answer-keys.onrender.com/save-one-country", {
       // Use POST because were sending data to change something on the server
       method: "POST",
-      // tell the server our request body is json text
+      // tell the server that the request body is json text
       headers: { "Content-Type": "application/json" },
       // turn our object into a json string before sending it over the network
       body: JSON.stringify({ country_name: country.name.common }),
