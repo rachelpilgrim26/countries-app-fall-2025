@@ -8,22 +8,68 @@ export default function SavedCountries({ countries }) {
   const [userInfo, setUserInfo] = useState(null);
   const [saved, setSaved] = useState([]);
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
+  // made an async function so we can use await inside it
   const storeUserData = async () => {
+    // send an http request to the backend to add one user
     await fetch("https://backend-answer-keys.onrender.com/add-one-user", {
+      // use POST because we are sending data to create or update something on the server
       method: "POST",
+      // tell the server that the request body is json text
       headers: { "Content-Type": "application/json" },
+      // turn our js object into a json string before sending
       body: JSON.stringify({
+        // use the users full name from your form state
         name: formData.fullName,
+        // use the selected country name from your form state
         country_name: formData.country,
+        // use the user email from your form state
         email: formData.email,
+        // use the user bio from your form state
         bio: formData.bio,
       }),
     });
+  };
+
+  // made an async function so we can pause
+  const getNewestUser = async () => {
+    // call your backend API to get the newest user
+    const response = await fetch(
+      "https://backend-answer-keys.onrender.com/get-newest-user"
+    );
+
+    // turn the http response body into a js object or array
+    const data = await response.json();
+
+    // grab the first item from the array (the newest user)
+    const newestUserFromAPI = data[0];
+
+    // save the user fields into react state so the UI shows them
+    setUserInfo({
+      fullName: newestUserFromAPI.name,
+      email: newestUserFromAPI.email,
+      country: newestUserFromAPI.country_name,
+      bio: newestUserFromAPI.bio,
+    });
+  };
+
+  // made an async function so we can pause using await
+  const getSavedCountries = async () => {
+    // call your backend to get the full list of saved countries
+    const response = await fetch(
+      "https://backend-answer-keys.onrender.com/get-all-saved-countries"
+    );
+
+    // turn the http response body from json text into a real JS value like an array
+    const data = await response.json();
+
+    // build a new array called result by getting each item from the API
+    const result = data.map((item) =>
+      // for each saved item find the matching country object in your local countries array
+      countries.find((country) => country.name.common === item.country_name)
+    );
+
+    // put the final array into react state so the UI can render those country objects
+    setSaved(result);
   };
 
   const handleSubmit = (submitEvent) => {
@@ -33,38 +79,21 @@ export default function SavedCountries({ countries }) {
     setFormData(emptyFormState);
   };
 
-  const getNewestUser = async () => {
-    const response = await fetch(
-      "https://backend-answer-keys.onrender.com/get-newest-user"
-    );
-    const data = await response.json();
-    const newestUserFromAPI = data[0];
-    setUserInfo({
-      fullName: newestUserFromAPI.name,
-      email: newestUserFromAPI.email,
-      country: newestUserFromAPI.country_name,
-      bio: newestUserFromAPI.bio,
-    });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
+
+  // after react renders run this effect and also re run whenever countries changes
+  useEffect(() => {
+    // only call getSavedCountries() if countries exists and has at least one item
+    if (countries.length) getSavedCountries();
+    // dependency array run on mount and again any time countries becomes a new value
+  }, [countries]);
 
   useEffect(() => {
     getNewestUser();
   }, []);
-
-  const getSavedCountries = async () => {
-    const response = await fetch(
-      "https://backend-answer-keys.onrender.com/get-all-saved-countries"
-    );
-    const data = await response.json();
-    const result = data.map((item) =>
-      countries.find((country) => country.name.common === item.country_name)
-    );
-    setSaved(result);
-  };
-
-  useEffect(() => {
-    if (countries.length) getSavedCountries();
-  }, [countries]);
 
   return (
     <section className="saved">
