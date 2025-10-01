@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-const [views, setViews] = useState(0);
 
 export default function CountryDetails({ countries }) {
   const { countryName } = useParams();
@@ -12,6 +11,7 @@ export default function CountryDetails({ countries }) {
       countryItem.name.common === countryName
     // if a match is found .find() stops and returns that object if no match it returns undefined
   );
+  const [views, setViews] = useState(0);
 
   // made an async function named CountryCount so we can use await inside it
   const getCountryCount = async () => {
@@ -47,8 +47,7 @@ export default function CountryDetails({ countries }) {
       body: JSON.stringify({ country_name: country.name.common }),
     });
   }
-
-  // run some code after react renders and again whenever country changes
+  // run this code after react renders and again whenever country changes
   useEffect(() => {
     // only do the work if we actually have a matching country object
     if (country) {
