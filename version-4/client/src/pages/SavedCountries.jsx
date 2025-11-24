@@ -68,6 +68,28 @@ export default function SavedCountries({ countries }) {
     setSaved(result);
   };
 
+  // made an async function to unsave one country by its name
+  const handleUnsaveCountry = async (countryNameToUnsave) => {
+    // send a POST request to the backend unsave endpoint
+    await fetch("/api/unsave-one-country", {
+      // use POST because the backend expects a POST request
+      method: "POST",
+      // tell the server that we are sending JSON in the request body
+      headers: { "Content-Type": "application/json" },
+      // send the country_name in the body so the backend knows which country to unsave
+      body: JSON.stringify({ country_name: countryNameToUnsave }),
+    });
+
+    // create a new array without the country that was just unsaved
+    const updatedSavedCountries = saved.filter(
+      (savedCountryItem) =>
+        savedCountryItem && savedCountryItem.name.common !== countryNameToUnsave
+    );
+
+    // update the saved state so the UI no longer shows the unsaved country
+    setSaved(updatedSavedCountries);
+  };
+
   const handleSubmit = (submitEvent) => {
     submitEvent.preventDefault();
     storeUserData();
@@ -139,6 +161,13 @@ export default function SavedCountries({ countries }) {
             countryItem && (
               <div key={countryItem.name.common} className="cell">
                 <CountryCard country={countryItem} />
+                <button
+                  type="button"
+                  className="unsave-button"
+                  onClick={() => handleUnsaveCountry(countryItem.name.common)}
+                >
+                  Unsave
+                </button>
               </div>
             )
         )}
