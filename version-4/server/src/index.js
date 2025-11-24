@@ -92,6 +92,17 @@ async function updateOneCountryCount(country_name) {
   return data.rows[0].count;
 }
 
+// unsave
+async function unsaveOneCountry(countryName) {
+  const deleteCountryText = `
+    DELETE FROM saved_countries
+    WHERE country_name = $1
+    RETURNING *
+  `;
+  const deleteCountryData = await db.query(deleteCountryText, [countryName]);
+  return deleteCountryData.rows[0];
+}
+
 /*----------------------------------
 // API Endpoints
 // ----------------------------------*/
@@ -133,4 +144,10 @@ app.post("/update-one-country-count", async (req, res) => {
   const data = req.body;
   const dataCount = await updateOneCountryCount(data.country_name);
   res.json({ count: dataCount });
+});
+
+app.post("/unsave-one-country", async (req, res) => {
+  const data = req.body;
+  await unsaveOneCountry(data.country_name);
+  res.send("Success! The country is unsaved.");
 });
