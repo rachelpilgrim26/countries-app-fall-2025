@@ -9,16 +9,11 @@ This project is ****\_\_\_****
 Check out the app: https://your-project.netlify.app
 
 ## 🖼️ Screenshots
+<img width="1144" height="571" alt="image" src="https://github.com/user-attachments/assets/62d8fe2e-69f4-42a2-a4f5-36d7b40605e8" />
 
-Here is where you'll include a screenshot of your project to show it off!
+<img width="798" height="588" alt="image" src="https://github.com/user-attachments/assets/3c0b0ce1-e22d-4ae2-80c7-2541f6201189" />
 
-Your instructor will walk you through this process with the rest of the class. Please be patient until the time comes! In the meantime, you can fill out all other sections of this template.
 
-1. Use `Command + Control + Shift + 4` to take a screenshot of your site and copy the screenshot to your clipboard
-2. Find your Github README.md file on the Github website
-3. Edit the site by clicking on the Pencil icon ✏️
-4. Move your cursor to the position where you want to paste the screenshot, then paste it. Github will convert the pasted screenshot into an `<img>` tag
-5. Select "Commit changes..." to save your changes
 
 ## ✨ Features
 
