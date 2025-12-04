@@ -13,6 +13,7 @@ Check out the app: https://your-project.netlify.app
 
 <img width="798" height="588" alt="image" src="https://github.com/user-attachments/assets/3c0b0ce1-e22d-4ae2-80c7-2541f6201189" />
 
+<img width="923" height="409" alt="image" src="https://github.com/user-attachments/assets/40e22c52-1ed8-4f18-a7fe-aa89453854d6" />
 
 
 ## ✨ Features
