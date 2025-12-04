@@ -12,29 +12,24 @@ This project showcases real API usage, data persistence, dynamic rendering, and 
 Check out the app: https://countries-version-5.netlify.app
 
 ## 🖼️ Screenshots
+
 <img width="1144" height="571" alt="image" src="https://github.com/user-attachments/assets/62d8fe2e-69f4-42a2-a4f5-36d7b40605e8" />
 
 <img width="798" height="588" alt="image" src="https://github.com/user-attachments/assets/3c0b0ce1-e22d-4ae2-80c7-2541f6201189" />
 
 <img width="923" height="409" alt="image" src="https://github.com/user-attachments/assets/40e22c52-1ed8-4f18-a7fe-aa89453854d6" />
 
-
 ## ✨ Features
 
 This is what you can do on the app:
 
-- ***
-  Discover countries with a dynamic “Where in the World?” interface
-- ***
-  Save and unsave countries instantly
-- ***
-  Build a personal list of countries you love
-- ***
-  Fill out your own user profile
-- ***
-  Access a clean, well-structured Saved Countries page
-- ***
-  View rich details for every country including flags, population, capital city, and region
+- Discover countries with a dynamic “Where in the World?” interface
+
+- Save and unsave countries instantly
+- Build a personal list of countries you love
+- Fill out your own user profile
+- Access a clean, well-structured Saved Countries page
+- View rich details for every country including flags, population, capital city, and region
 
 ## 🛠️ Tech Stack
 
