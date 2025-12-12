@@ -46,14 +46,16 @@ async function getAllUsers() {
   return data.rows;
 }
 
-// add one user
+//add one user
 async function addOneUser(name, country_name, email, bio) {
   const dataText = `
     INSERT INTO users (name, country_name, email, bio)
     VALUES ($1, $2, $3, $4)
     RETURNING *
   `;
+
   const data = await db.query(dataText, [name, country_name, email, bio]);
+
   return data.rows[0];
 }
 
